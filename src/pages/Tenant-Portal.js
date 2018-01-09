@@ -7,11 +7,6 @@ import history from '../history';
 
 const auth = new Auth();
 
-const handleAuthentication = ({ location }) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
 
 
 class TenantPortal extends Component {
@@ -28,7 +23,7 @@ class TenantPortal extends Component {
     const { isAuthenticated } = auth;
     return (
       <Container style={{ minHeight: "80%" }}>
-       
+
         {
           isAuthenticated() && (
             <h4>
@@ -50,7 +45,7 @@ class TenantPortal extends Component {
               </h4>
           )
         }
-    </Container>
+      </Container>
     );
   }
 }

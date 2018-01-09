@@ -27,9 +27,13 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        history.replace('/home');
+        // history.push('/tenant-portal');
+        // ======================================================
+        // THIS IS A HACK THAT TELLS THE BROWSER TO RELOAD THE ENTIRE SITE. history.push would just be a partial reload and is not handling the isAuthenticated as expected
+        // ======================================================
+        window.location = '/tenant-portal';
       } else if (err) {
-        history.replace('/home');
+        history.push('/tenant-portal');
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
