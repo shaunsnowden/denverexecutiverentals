@@ -2,8 +2,10 @@ import React from "react";
 import "./Footer.css";
 
 const Footer = () =>
-  <footer className="footer">
-    <span>Contact Us: denverrentz@jeemail.com</span>
-  </footer>;
+  <div className="phantom">
+    <footer className="footer">
+      <span>Contact Us: denverrentz@jeemail.com</span>
+    </footer>;
+  </div>
 
 export default Footer;
