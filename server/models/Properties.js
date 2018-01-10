@@ -53,7 +53,7 @@ let PropertiesSchema = new Schema({
   },
   monthlyRent: {
     type: Number,
-    required: "Please enter the monhtly rent value."
+    required: "Please enter the monthly rent value."
   },
   rentDueDate: {
     type: Date,
