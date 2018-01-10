@@ -21,7 +21,14 @@ class Profile extends Component {
       $.get('/api/rentals')
         .done(
           res=>{console.log(res);
-          this.setState({imageSource: res.image});
+          this.setState({
+            tenantName: res.tenantName,
+            propertyTitle: res.propertyTitle,
+            porpertyAddress: res.propertyAddress,
+            imageSource: res.image,
+            leaseEnd: res.leaseEnd, 
+            monthlyRent: res.monthlyRent
+          });
           }
         )
     }
