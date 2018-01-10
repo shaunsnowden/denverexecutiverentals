@@ -1,8 +1,10 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import Container from "../components/Container";
 import Callback from '../Callback/Callback';
 import Auth from '../Auth/Auth';
 import history from '../history';
+import Profile from '../Profile/Profile';
+
 
 
 const auth = new Auth();
@@ -26,9 +28,13 @@ class TenantPortal extends Component {
 
         {
           isAuthenticated() && (
-            <h4>
-              You are logged in!
-            </h4>
+            <Fragment>
+              <h4>
+                You are logged in!
+              </h4>
+
+              <Profile auth={auth} />
+            </Fragment>
           )
         }
         {

@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Post = require('./models/Properties.js');
+const Rentals = require('./models/Properties.js');
 
 const PORT = 8080;
 const app = express();
@@ -10,8 +10,8 @@ app.use(bodyParser.json());
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
 
-app.get('/api/posts', (req, res) => {
-  Post.find({})
+app.get('/api/rentals', (req, res) => {
+  Rentals.findOne(req.body.sub)
     .then((data) => {
       res.json(data);
     })
