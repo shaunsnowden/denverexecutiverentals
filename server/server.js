@@ -2,16 +2,41 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
-const Properties = require('./models/Properties.js');
 
-const PORT = 8080;
+const Properties = require('./models/Properties.js');
+const Rentals = require('./models/Properties.js');
+
+
+app.use(express.static("../build"));
+
+const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json());
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
 
+
 app.get('/api/properties', (req, res) => {
   Properties.find({})
+   .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send(err.message ? err.message : 'Internal Server Blowup')
+    });
+});
+
+var databaseUri = "mongodb://localhost/27017";
+
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
+
+app.get('/api/rentals', (req, res) => {
+  Rentals.findOne(req.body.sub)
     .then((data) => {
       res.json(data);
     })

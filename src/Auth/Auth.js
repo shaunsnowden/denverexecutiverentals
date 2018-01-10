@@ -12,11 +12,15 @@ export default class Auth {
     scope: 'openid'
   });
 
+  userProfile;
+
   constructor() {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.handleAuthentication = this.handleAuthentication.bind(this);
     this.isAuthenticated = this.isAuthenticated.bind(this);
+    this.getAccessToken = this.getAccessToken.bind(this);
+    this.getProfile = this.getProfile.bind(this);
   }
 
   login() {
@@ -27,13 +31,14 @@ export default class Auth {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
-        // history.push('/tenant-portal');
+        // history.replace('/tenant-portal');
         // ======================================================
         // THIS IS A HACK THAT TELLS THE BROWSER TO RELOAD THE ENTIRE SITE. history.push would just be a partial reload and is not handling the isAuthenticated as expected
         // ======================================================
         window.location = '/tenant-portal';
       } else if (err) {
-        history.push('/tenant-portal');
+        // history.replace('/tenant-portal');
+        window.location = '/';
         console.log(err);
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
@@ -48,6 +53,24 @@ export default class Auth {
     localStorage.setItem('expires_at', expiresAt);
     // navigate to the home route
     history.replace('/home');
+  }
+
+  getAccessToken() {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      throw new Error('No access token found');
+    }
+    return accessToken;
+  }
+
+  getProfile(cb) {
+    let accessToken = this.getAccessToken();
+    this.auth0.client.userInfo(accessToken, (err, profile) => {
+      if (profile) {
+        this.userProfile = profile;
+      }
+      cb(err, profile);
+    });
   }
 
   logout() {
