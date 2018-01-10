@@ -23,6 +23,7 @@
     "react-scripts": "1.0.17"
   },
   "proxy": "http://localhost:8080",
+  "main": "server/server.js",
   "scripts": {
     "dev": "concurrently \"nodemon server/server.js\" \"npm run start\"",
     "start": "react-scripts start",
