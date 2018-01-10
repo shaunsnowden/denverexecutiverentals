@@ -4,11 +4,21 @@ const mongoose = require('mongoose');
 
 const Rentals = require('./models/Properties.js');
 
+app.use(express.static("../build"));
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json());
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
+
+var databaseUri = "mongodb://localhost/27017";
+
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI);
+} else {
+  mongoose.connect(databaseUri);
+}
 
 app.get('/api/rentals', (req, res) => {
   Rentals.findOne(req.body.sub)
