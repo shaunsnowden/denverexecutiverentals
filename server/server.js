@@ -6,12 +6,11 @@ const mongoose = require('mongoose');
 const Properties = require('./models/Properties.js');
 const Rentals = require('./models/Properties.js');
 
-
-app.use(express.static("../build"));
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json());
+
+app.use(express.static("../build"));
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
 
