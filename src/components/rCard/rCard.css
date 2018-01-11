@@ -42,3 +42,9 @@ transform: scale(1);
 transform: scale(0);
 transition: transform 1000ms ease;
 }
+
+/* is occupied */
+#is-occupied {
+  color: rgb(6, 77, 15);
+  font-weight: bold;
+}
