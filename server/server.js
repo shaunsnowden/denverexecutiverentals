@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 console.log(path.resolve("../build"));
 console.log(path.join(__dirname, "../build"));
 
-app.use(express.static("../build"));
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
 
