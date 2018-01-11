@@ -30,7 +30,7 @@ app.get('/api/properties', (req, res) => {
     });
 });
 
-var databaseUri = "mongodb://localhost/27017";
+var databaseUri = "mongodb://localhost/Properties";
 
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI);
