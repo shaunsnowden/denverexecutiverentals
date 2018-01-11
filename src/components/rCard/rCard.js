@@ -2,12 +2,15 @@ import React from "react";
 import "./rCard.css";
 import Modal from 'react-responsive-modal';
 import ReactDOM from 'react-dom';
+import Container from "../Container";
+import Row from "../Row";
+import Col from "../Col";
 
 export default class RCard extends React.Component {
     state = {
-      open: false,
+      open: false
     };
-  
+    
     // modal functions
     onOpenModal = () => {
       this.setState({ open: true });
@@ -16,10 +19,21 @@ export default class RCard extends React.Component {
     onCloseModal = () => {
       this.setState({ open: false });
     };
+
    
     render() {
 
         const { open } = this.state;
+
+        let occupationStatus;
+        let occupationStatusModal;
+
+        if (this.props.occupied === false) {
+            occupationStatus = "Vacancy";
+            occupationStatusModal = "This residence is currently vacant! Contact us at (970)555-1010 or denverrentz@jeemail.com to inquire about leasing opportunities."
+        } else if (this.props.occupied === true) {
+            occupationStatus = "";
+        }
 
         return(
         
@@ -37,13 +51,33 @@ export default class RCard extends React.Component {
                     transitionExitActive: 'transition-exit-active',
                     }}
                     animationDuration={1000}>
-                <h2>{this.props.name}</h2>
-                <img alt={this.props.name} src={this.props.image} style={{height: "300px", width: "400px"}} />
-                <p>{this.props.description}</p>
+
+                    {/* quick fix for bootstrap messing up the X-button in the modal */}
+                    <p style={{color:"white"}}>i</p>
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-md-6">
+                                <h3>{this.props.name}</h3>
+                                <br/>
+                                <img alt={this.props.name} src={this.props.image} style={{height: "250px", width: "300px"}} />
+                                <br/>
+                                <br/>
+                                <p>{this.props.address}</p>
+                                
+                                <span>{occupationStatusModal}</span>
+                            </div>
+                            <div className="col-md-6">
+                                <h1>Map Goes Here</h1>
+                            </div>
+                        </div>
+                    </div>
+                        
+
                 </Modal>
             </div>
             <div className="content">
-                <span>{this.props.name}</span>
+                <span>{this.props.name}</span><br/>
+                <span id="is-occupied">{occupationStatus}</span>
             </div>
         </div>
         );

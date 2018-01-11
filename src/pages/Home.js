@@ -13,7 +13,7 @@ const Home = () =>
     <Container style={{ marginTop: 30 }}>
       <Row>
         <Col size="md-12">
-          <h1>Denver's premiere coporate rental group</h1>
+          <h1>Denver's premiere corporate rental group</h1>
         </Col>
       </Row>
       <Row>
