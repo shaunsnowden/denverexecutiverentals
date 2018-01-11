@@ -1,4 +1,5 @@
 const bodyParser = require('body-parser');
+const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -9,6 +10,9 @@ const Rentals = require('./models/Properties.js');
 const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(bodyParser.json());
+
+console.log(path.resolve("../build"));
+console.log(path.join(__dirname, "../build"));
 
 app.use(express.static("../build"));
 
