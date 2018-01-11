@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "0.9.5"
+    "react-scripts": "1.0.17"
   },
   "dependencies": {
     "auth0-js": "^8.8.0",
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",
     "concurrently": "^3.5.1",
+    "history": "^4.6.1",
     "jquery": "^3.2.1",
     "mongoose": "^5.0.0-rc2",
     "nodemon": "^1.14.8",
@@ -19,6 +20,7 @@
     "react-dom": "^16.2.0",
     "react-jss": "^8.2.1",
     "react-responsive-modal": "^2.0.0",
+    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17"
   },
@@ -26,7 +28,7 @@
   "main": "server/server.js",
   "scripts": {
     "dev": "concurrently \"nodemon server/server.js\" \"npm run start-dev\"",
-    "start": "node server/server.js",
+    "start": "react-scripts start",
     "start-dev": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

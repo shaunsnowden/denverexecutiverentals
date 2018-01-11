@@ -1,40 +1,82 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Residences from "./pages/Residences";
-import Home from "./pages/Home";
-import TenantPortal from "./pages/Tenant-Portal";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import Wrapper from "./components/Wrapper";
-import Callback from './Callback/Callback';
-import Auth from './Auth/Auth';
+import React, { Component } from 'react';
+import { Navbar, Button } from 'react-bootstrap';
+import { Link } from "react-router-dom";
 import './App.css';
 
-const auth = new Auth();
+class App extends Component {
+  goTo(route) {
+    this.props.history.replace(`/${route}`)
+  }
 
-const handleAuthentication = ({ location }) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
+  login() {
+    this.props.auth.login();
+  }
+
+  logout() {
+    this.props.auth.logout();
+  }
+
+  render() {
+    const { isAuthenticated } = this.props.auth;
+
+    return (
+      <div className="container-fluid">
+        <nav className="navbar navbar-default">
+          <div className="navbar-header">
+            <Link className="navbar-brand" to="/">
+              Corporate Executive Rentals
+            </Link>
+          </div>
+          <ul className="nav navbar-nav">
+            <li
+              className={
+                window.location.pathname === "/" ||
+                  window.location.pathname === "/home"
+                  ? "active"
+                  : ""
+              }
+            >
+              <Link to="/Home">Home</Link>
+            </li>
+            <li
+              className={window.location.pathname === "/residences" ? "active" : ""}
+            >
+              <Link to="/residences">Residences</Link>
+            </li>
+            <li className={window.location.pathname === "/tenant-portal" ? "active" : ""}>
+              <Link to="/tenant-portal">Tenant Portal</Link>
+            </li>
+          </ul>
+          {
+          !isAuthenticated() && (
+            <Button
+              bsStyle="primary"
+              className="btn-margin"
+              onClick={this.login.bind(this)}
+            >
+              Log In
+            </Button>
+          )
+          }
+          {
+          isAuthenticated() && (
+              <Button
+                  bsStyle="primary"
+                  className="btn-margin"
+                onClick={this.logout.bind(this)}
+              >
+                  Log Out
+                </Button>
+            )
+          }
+        </nav>
+        <div className="container">
+          {this.props.children}
+        </div>
+      </div>
+
+    );
   }
 }
-
-const App = () =>
-  <Router>
-    <div>
-      <Navbar />
-      <Wrapper>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/home" component={Home} />
-        <Route exact path="/residences" component={Residences} />
-        <Route exact path="/tenant-portal" component={TenantPortal} />
-        <Route path="/callback" render={(props) => {
-          // handleAuthentication(props);
-          return <Callback {...props} />
-        }} />
-        {/* <Route exact path="/callback" component={Callback} /> */}
-      </Wrapper>
-      <Footer />
-    </div>
-  </Router>;
 
 export default App;

@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
 import loading from './loading.svg';
-import Auth from '../Auth/Auth';
-
-const auth = new Auth();
-
-const handleAuthentication = ({ location }) => {
-  if (/access_token|id_token|error/.test(location.hash)) {
-    auth.handleAuthentication();
-  }
-}
 
 class Callback extends Component {
-
-  componentDidMount() {
-    handleAuthentication(this.props);
-  }
-
   render() {
     const style = {
       position: 'absolute',
@@ -30,11 +16,9 @@ class Callback extends Component {
       backgroundColor: 'white',
     }
 
-
-
     return (
       <div style={style}>
-        <img src={loading} alt="loading" />
+        <img src={loading} alt="loading"/>
       </div>
     );
   }
