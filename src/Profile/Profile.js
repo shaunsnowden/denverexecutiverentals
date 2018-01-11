@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { Panel, ControlLabel, Glyphicon } from 'react-bootstrap';
 import $ from 'jquery';
 import './Profile.css';
+import Auth from '../Auth/Auth';
+
+let profileAuth = Auth;
 
 class Profile extends Component {
+  
+  
   componentWillMount() {
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
@@ -16,8 +21,10 @@ class Profile extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidMount() {
     if (this.state.profile){
+      // let apiRentalRoute = '/api/rentals?sub=' + JSON.stringify(this.state.profile, null, 2);
+      console.log(this.state.profile);
       $.get('/api/rentals')
         .done(
           res=>{console.log(res);
