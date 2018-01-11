@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 
 
 const Properties = require('./models/Properties.js');
-const Rentals = require('./models/Properties.js');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -39,7 +38,8 @@ if (process.env.MONGODB_URI) {
 }
 
 app.get('/api/rentals', (req, res) => {
-  Rentals.findOne(req.body.sub)
+  Properties.findOne(req.body.sub)
+    // 'tenantPassword' : 'req.query.sub' 
     .then((data) => {
       res.json(data);
     })

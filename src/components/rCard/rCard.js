@@ -1,10 +1,8 @@
 import React from "react";
 import "./rCard.css";
 import Modal from 'react-responsive-modal';
-import ReactDOM from 'react-dom';
-import Container from "../Container";
-import Row from "../Row";
-import Col from "../Col";
+
+
 
 export default class RCard extends React.Component {
     state = {

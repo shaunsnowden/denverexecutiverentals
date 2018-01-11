@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Container from "../components/Container";
-import Callback from '../Callback/Callback';
 import Auth from '../Auth/Auth';
-import history from '../history';
 import Profile from '../Profile/Profile';
 
 
@@ -16,9 +14,11 @@ class TenantPortal extends Component {
     auth.login();
   }
 
+  logout() {
+    auth.logout();
+  }
+
   state = {
-    user: "",
-    password: ""
   };
 
   render() {
@@ -31,11 +31,11 @@ class TenantPortal extends Component {
             <Fragment>
               <h4>
                 You are logged in!
-                {/* {' '}
+                {' '}
                 <a style={{ cursor: 'pointer' }} onClick={this.logout.bind(this)}>
                  Click Here
                 </a>
-                {' '}to Log Out. */}
+                {' '}to Log Out.
               </h4>
 
               <Profile auth={auth} />
