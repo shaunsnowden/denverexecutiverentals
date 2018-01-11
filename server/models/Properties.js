@@ -29,7 +29,6 @@ let PropertiesSchema = new Schema({
   tenantName: {
     type: String,
     trim: true,
-    required: "Please give the tenant name."
   },
   tenantEmail: {
     type: String,
@@ -37,11 +36,9 @@ let PropertiesSchema = new Schema({
   },
   tenantPassword: {
     type: String,
-    required: "Please enter a valid password."
   },
   TenantPhone: {
-    type: Number,
-    required: "Please enter tenant's phone number."
+    type: String,
   },
   leaseStart: {
     type: Date,
@@ -52,7 +49,7 @@ let PropertiesSchema = new Schema({
     default: null
   },
   monthlyRent: {
-    type: Number,
+    type: String,
     required: "Please enter the monthly rent value."
   },
   rentDueDate: {
