@@ -1,8 +1,6 @@
 import React, { Component, Fragment } from "react";
 import Container from "../components/Container";
-import Callback from '../Callback/Callback';
 import Auth from '../Auth/Auth';
-import history from '../history';
 import Profile from '../Profile/Profile';
 
 

@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import RCard from "../components/rCard";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import Col from "../components/Col";
+// import Container from "../components/Container";
+// import Row from "../components/Row";
+// import Col from "../components/Col";
 
 // import rcards from "../rcards.json";
 import Wrapper from "../components/Wrapper";
 // import ApartmentModal from '../components/ApartmentModal';
 // import ResponsiveModal from '../components/ResponsiveModal';
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 class Residences extends Component {
