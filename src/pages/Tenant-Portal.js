@@ -16,9 +16,11 @@ class TenantPortal extends Component {
     auth.login();
   }
 
+  logout() {
+    auth.logout();
+  }
+
   state = {
-    user: "",
-    password: ""
   };
 
   render() {
@@ -31,11 +33,11 @@ class TenantPortal extends Component {
             <Fragment>
               <h4>
                 You are logged in!
-                {/* {' '}
+                {' '}
                 <a style={{ cursor: 'pointer' }} onClick={this.logout.bind(this)}>
                  Click Here
                 </a>
-                {' '}to Log Out. */}
+                {' '}to Log Out.
               </h4>
 
               <Profile auth={auth} />
