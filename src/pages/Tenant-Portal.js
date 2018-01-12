@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import Container from "../components/Container";
 import Auth from '../Auth/Auth';
 import Profile from '../Profile/Profile';
+import Footer from "../components/Footer";
 
 
 
@@ -56,6 +57,9 @@ class TenantPortal extends Component {
               </h4>
           )
         }
+        <div>
+          <Footer />
+        </div>
       </Container>
     );
   }

@@ -9,6 +9,8 @@
   width: 300px;
   box-shadow: 0 3px 6px #999, 0 3px 6px #999;
   text-align: left;
+  color: rgb(238, 104, 15);
+  font-weight: bold;
 }
 
 .rcard > .img-container {
@@ -25,6 +27,18 @@ height: 100%;
 
 .rcard > .content {
 text-align: center;
+}
+
+h3 {
+  color: rgb(238, 104, 15);
+}
+
+p {
+  color: rgb(1, 57, 94);
+}
+
+h4 {
+  color: rgb(1, 57, 94);
 }
 
 /* Modal Animations */

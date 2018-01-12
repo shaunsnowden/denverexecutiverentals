@@ -1,7 +1,7 @@
 .footer {
   min-height: 50px;
   height: auto;
-  background: #B8B8B8;
+  background: rgb(185, 185, 185);
   position: fixed;
   left: 0;
   bottom: 0;
@@ -17,7 +17,8 @@
   left: 0;
   right: 0;
   padding: 3px;
-  background: #B8B8B8;
+  background: rgb(185, 185, 185);
+  color: rgb(1, 57, 94);
 }
 
 .phantom {
