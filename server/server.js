@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
+const sendmail = require('sendmail')();
 
 
 const Properties = require('./models/Properties.js');
@@ -17,6 +18,20 @@ app.use(express.static(path.join(__dirname, "../build")));
 
 app.get('/api', (req, res) => res.send('Hello World from 8080!'));
 
+app.post("/api/sendmail", sendmail);
+
+function sendmail(req, res) {
+    sendmail({
+        from: 'brandonggood@gmail.com',
+        to: 'brandonggood@gmail.com',
+        subject: 'test sendmail',
+        html: 'Mail of test sendmail ',
+    }, function (err, reply) {
+        console.log(err && err.stack);
+        console.dir(reply);
+        console.log("Email Sent!")
+    });
+}
 
 app.get('/api/properties', (req, res) => {
   Properties.find({})
