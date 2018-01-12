@@ -1,7 +1,7 @@
 import React from "react";
 import "./rCard.css";
 import Modal from 'react-responsive-modal';
-
+import MapCard from "../MapCard/MapCard";
 
 
 export default class RCard extends React.Component {
@@ -65,7 +65,7 @@ export default class RCard extends React.Component {
                                 <span>{occupationStatusModal}</span>
                             </div>
                             <div className="col-md-6">
-                                <h1>Map Goes Here</h1>
+                                <MapCard />
                             </div>
                         </div>
                     </div>

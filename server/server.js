@@ -53,9 +53,10 @@ if (process.env.MONGODB_URI) {
 }
 
 app.get('/api/rentals', (req, res) => {
-  Properties.findOne(req.body.sub)
-    // 'tenantPassword' : 'req.query.sub' 
+    console.log(req.query);
+  Properties.findOne({tenantPassword : req.query.sub})
     .then((data) => {
+        console.log(data);
       res.json(data);
     })
     .catch((err) => {
