@@ -65,7 +65,16 @@ export default class RCard extends React.Component {
                                 <span>{occupationStatusModal}</span>
                             </div>
                             <div className="col-md-6">
-                                <MapCard />
+                                <MapCard 
+                                    id={this.props.id}
+                                    key = {this.props.id}
+                                    name={this.props.propertyTitle}
+                                    image={this.props.image}
+                                    address={this.props.propertyAddress}
+                                    occupied={this.props.occupied}
+                                    lat={this.props.lat}
+                                    lng={this.props.lng}
+                                />
                             </div>
                         </div>
                     </div>

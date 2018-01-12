@@ -42,7 +42,8 @@ class Residences extends Component {
             image={rcard.image}
             address={rcard.propertyAddress}
             occupied={rcard.occupied}
-            
+            lat={rcard.lat}
+            lng={rcard.lng}
 
           />
         ))}
