@@ -23,14 +23,14 @@ class App extends Component {
       <div className="container-fluid">
         <nav className="navbar navbar-default">
           <div className="navbar-header">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" to="/home">
               Corporate Executive Rentals
             </Link>
           </div>
           <ul className="nav navbar-nav">
             <li
               className={
-                window.location.pathname === "/" ||
+                window.location.pathname === "/home" ||
                   window.location.pathname === "/home"
                   ? "active"
                   : ""
@@ -70,11 +70,11 @@ class App extends Component {
             )
           }
         </nav>
+
         <div className="container">
           {this.props.children}
         </div>
       </div>
-
     );
   }
 }

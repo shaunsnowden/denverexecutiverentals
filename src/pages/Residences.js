@@ -10,6 +10,7 @@ import Wrapper from "../components/Wrapper";
 // import ResponsiveModal from '../components/ResponsiveModal';
 // import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Footer from "../components/Footer";
 
 class Residences extends Component {
 
@@ -47,6 +48,7 @@ class Residences extends Component {
         ))}
         
       </Wrapper>
+      <Footer />
       
     </div>
     );
