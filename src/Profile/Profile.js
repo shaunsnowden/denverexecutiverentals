@@ -4,37 +4,48 @@ import $ from 'jquery';
 import './Profile.css';
 
 class Profile extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { profile: {} };
+  }
   componentWillMount() {
     this.setState({ profile: {} });
     const { userProfile, getProfile } = this.props.auth;
     if (!userProfile) {
       getProfile((err, profile) => {
+        console.log(profile);
         this.setState({ profile });
       });
     } else {
       this.setState({ profile: userProfile });
+      console.log(this.state.profile);
     }
   }
 
   componentDidMount() {
-    if (this.state.profile) {
-      // let apiRentalRoute = '/api/rentals?sub=' + JSON.stringify(this.state.profile, null, 2);
-      console.log(this.state.profile.sub);
-      $.get('/api/rentals')
-        .done(
-        res => {
-          console.log(res);
-          this.setState({
-            tenantName: res.tenantName,
-            propertyTitle: res.propertyTitle,
-            propertyAddress: res.propertyAddress,
-            imageSource: res.image,
-            leaseEnd: res.leaseEnd,
-            monthlyRent: res.monthlyRent
-          });
-        }
-        )
-    }
+    
+    this.props.auth.getProfile((err, profile) => {
+      if (profile && profile.sub) {
+        // let apiRentalRoute = '/api/rentals?sub=' + JSON.stringify(this.state.profile, null, 2);
+        $.get(`/api/rentals?sub=${profile.sub}`)
+          .done(
+          res => {
+            if(res){
+            console.log(res);
+            this.setState({
+              tenantName: res.tenantName,
+              propertyTitle: res.propertyTitle,
+              propertyAddress: res.propertyAddress,
+              imageSource: res.image,
+              leaseEnd: res.leaseEnd,
+              monthlyRent: res.monthlyRent
+            });
+          }
+          }
+          )
+      }
+    });
   }
 
   render() {
