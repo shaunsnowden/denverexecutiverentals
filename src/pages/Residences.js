@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import RCard from "../components/rCard";
-// import Container from "../components/Container";
-// import Row from "../components/Row";
-// import Col from "../components/Col";
+import Container from "../components/Container";
+import Row from "../components/Row";
+import Col from "../components/Col";
 
 // import rcards from "../rcards.json";
 import Wrapper from "../components/Wrapper";
@@ -10,6 +10,7 @@ import Wrapper from "../components/Wrapper";
 // import ResponsiveModal from '../components/ResponsiveModal';
 // import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import Map from "../components/Map/Map";
 
 class Residences extends Component {
 
@@ -47,6 +48,22 @@ class Residences extends Component {
         ))}
         
       </Wrapper>
+      <Container>
+        <Row>
+          <Col size="md-12">
+      <Map
+          id={this.props.id}
+          key = {this.props.id}
+          name={this.props.propertyTitle}
+          image={this.props.image}
+          address={this.props.propertyAddress}
+          occupied={this.props.occupied}
+          lat={this.props.lat}
+          lng={this.props.lng}                        
+         />
+          </Col>
+          </Row>
+      </Container>
       
     </div>
     );
