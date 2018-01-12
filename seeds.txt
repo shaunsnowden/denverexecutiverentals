@@ -1,74 +1,10 @@
-const bodyParser = require('body-parser');
-const path = require('path');
-const express = require('express');
-const mongoose = require('mongoose');
-// const sendmail = require('sendmail')();
-
-
-const Properties = require('./models/Properties.js');
-
-const PORT = process.env.PORT || 8080;
-const app = express();
-app.use(bodyParser.json());
-
-console.log(path.resolve("../build"));
-console.log(path.join(__dirname, "../build"));
-
-app.use(express.static(path.join(__dirname, "../build")));
-
-app.get('/api', (req, res) => res.send('Hello World from 8080!'));
-
-// app.post("/api/sendmail", sendmail);
-
-// function sendmail(req, res) {
-//     sendmail({
-//         from: 'brandonggood@gmail.com',
-//         to: 'brandonggood@gmail.com',
-//         subject: 'test sendmail',
-//         html: 'Mail of test sendmail ',
-//     }, function (err, reply) {
-//         console.log(err && err.stack);
-//         console.dir(reply);
-//         console.log("Email Sent!")
-//     });
-// }
-
-// getting all property data
-app.get('/api/properties', (req, res) => {
-  Properties.find({})
-   .then((data) => {
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message ? err.message : 'Internal Server Blowup')
-    });
-});
-
-var databaseUri = "mongodb://localhost/Properties";
-
-if (process.env.MONGODB_URI) {
-  mongoose.connect(process.env.MONGODB_URI);
-} else {
-  mongoose.connect(databaseUri);
-}
-
-// getting individual user rental data
-app.get('/api/rentals', (req, res) => {
-    console.log(req.query);
-  Properties.findOne({tenantPassword : req.query.sub})
-    .then((data) => {
-        console.log(data);
-      res.json(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send(err.message ? err.message : 'Internal Server Blowup')
-    });
-});
-
-app.get("/api/seed", (req, res) => {
-  let properties = [
+INSTRUCTIONS - after starting the Mongo DB (i.e., typing mongod in command line) and after launching the app (i.e., running yarn dev in Git Bash):
+    1) open a second Git Bash window
+    2) type and run "mongo"
+    3) type and run "use Properties" to switch to our database
+    4) type and run "db.properties.remove({})"
+    5) copy/paste (i.e., CTRL+C in this document and then right click in Git Bash command line) and all the text below and then click Enter:
+db.properties.insertMany([
     { 
         id: "1",
         propertyTitle: "The Views at Historic Kenny's House", 
@@ -84,8 +20,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "7/1/2017",
         leaseEnd: "6/30/2018",
         monthlyRent: "800",
-        rentDueDate: "2/1/2018",
-        rentPaid: true
+        rentDueDate: "1/10/2018",
+        rentPaid: "1"
     }, 
     { 
         id: "2",
@@ -103,7 +39,7 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "950",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }, 
     { 
         id: "3",
@@ -121,7 +57,7 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "700",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }, 
     { 
         id: "4",
@@ -138,8 +74,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "1/1/2018",
         leaseEnd: "3/31/2018",
         monthlyRent: "750",
-        rentDueDate: "1/20/2018",
-        rentPaid: false
+        rentDueDate: "1/10/2018",
+        rentPaid: "0"
     }, 
     { 
         id: "5",
@@ -156,8 +92,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "12/1/2017",
         leaseEnd: "5/30/2018",
         monthlyRent: "600",
-        rentDueDate: "1/25/2018",
-        rentPaid: true
+        rentDueDate: "1/10/2018",
+        rentPaid: "1"
     }, 
     { 
         id: "6",
@@ -175,7 +111,7 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "650",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }, 
     { 
         id: "7",
@@ -192,8 +128,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "10/1/2017",
         leaseEnd: "9/30/2018",
         monthlyRent: "850",
-        rentDueDate: "2/2/2018",
-        rentPaid: false
+        rentDueDate: "1/10/2018",
+        rentPaid: "0"
     }, 
     { 
         id: "8",
@@ -211,7 +147,7 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "800",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }, 
     { 
         id: "9",
@@ -228,8 +164,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "8/1/2017",
         leaseEnd: "1/31/2018",
         monthlyRent: "1,000",
-        rentDueDate: "1/15/2018",
-        rentPaid: true
+        rentDueDate: "1/10/2018",
+        rentPaid: "1"
     }, 
     { 
         id: "10",
@@ -247,7 +183,7 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "1,200",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }, 
     { 
         id: "11",
@@ -264,8 +200,8 @@ app.get("/api/seed", (req, res) => {
         leaseStart: "11/1/2017",
         leaseEnd: "7/31/2018",
         monthlyRent: "1,100",
-        rentDueDate: "2/5/2018",
-        rentPaid: false
+        rentDueDate: "1/10/2018",
+        rentPaid: "0"
     }, 
     { 
         id: "12",
@@ -283,29 +219,6 @@ app.get("/api/seed", (req, res) => {
         leaseEnd: "",
         monthlyRent: "1,000",
         rentDueDate: "",
-        rentPaid: null
+        rentPaid: ""
     }
-];
-Properties.remove({});
-properties.forEach((property) => Properties.create(property));
-res.sendStatus(204);
-});
-// app.post('/api/posts', (req, res) => {
-//   let newPost = new Post();
-//   newPost.title = req.body.title;
-//   newPost.body = req.body.body;
-//   newPost.author = req.body.author;
-//   newPost.save()
-//     .then(() => {
-//       res.sendStatus(204);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).send(err.message ? err.message : 'Internal Server Blowup')
-//     });
-// });
-
-// HERE IS WHERE WE NAME OUR DATABASE
-mongoose.connect('mongodb://localhost/Properties');
-
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+])

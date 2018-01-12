@@ -39,7 +39,8 @@ class Profile extends Component {
               propertyAddress: res.propertyAddress,
               imageSource: res.image,
               leaseEnd: res.leaseEnd,
-              monthlyRent: res.monthlyRent
+              monthlyRent: res.monthlyRent,
+              rentDueDate: res.rentDueDate
             });
           }
           }
