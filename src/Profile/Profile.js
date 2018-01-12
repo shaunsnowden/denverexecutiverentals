@@ -6,6 +6,9 @@ import Container from "../components/Container";
 import Row from "../components/Row";
 import Col from "../components/Col";
 import Modal from 'react-responsive-modal';
+import Moment from 'react-moment';
+
+var moment = require('moment');
 
 class Profile extends Component {
 
@@ -49,7 +52,6 @@ class Profile extends Component {
     
     this.props.auth.getProfile((err, profile) => {
       if (profile && profile.sub) {
-        // let apiRentalRoute = '/api/rentals?sub=' + JSON.stringify(this.state.profile, null, 2);
         $.get(`/api/rentals?sub=${profile.sub}`)
           .done(
           res => {
@@ -75,6 +77,25 @@ class Profile extends Component {
     const { openPayment } = this.state;
     const { openMaintenance } = this.state;
     const { profile } = this.state;
+
+    // moment.js
+    const dateToFormat = this.state.rentDueDate;
+    console.log(moment(this.state.rentDueDate));
+    let currentDate = moment();
+    console.log(currentDate);
+    let rentPaidStatus;
+    let overdue
+
+    if(currentDate > moment(this.state.rentDueDate)){
+        console.log("rent not paid");
+        overdue = moment(this.state.rentDueDate, "YYYYMMDD").fromNow();
+        rentPaidStatus = `Rent was due `;      
+    }
+    else if(currentDate < moment(this.state.rentDueDate)){
+        rentPaidStatus = "";
+    }
+
+
     return (
       <div className="container">
         <div className="profile-area">
@@ -90,7 +111,8 @@ class Profile extends Component {
             <img src={this.state.imageSource} alt="rentalImg" />  
             <h4>{this.state.propertyAddress}</h4>
             <h4>Monthly Rent: ${this.state.monthlyRent}</h4>
-            <h4>Rent is due on {this.state.rentDueDate}</h4>
+            <h4>Rental Payment Date:  <Moment parse="YYYY-MM-DD HH:mm"> {dateToFormat}</Moment> </h4>
+            <h4 style={{color: "red"}}>{rentPaidStatus}{overdue}</h4>
 
             <div className="pay-rent">
               <button className="btn btn-action" id="pay-rent-button" onClick={this.onOpenPaymentModal}>
