@@ -305,6 +305,10 @@ res.sendStatus(204);
 //     });
 // });
 
+app.get("*", (req, res ) => {
+    res.sendFile(path.join(__dirname, "../build/index.html"));
+});
+
 // HERE IS WHERE WE NAME OUR DATABASE
 mongoose.connect('mongodb://localhost/Properties');
 
