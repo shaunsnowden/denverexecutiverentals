@@ -32,6 +32,7 @@ class Residences extends Component {
   render() {
     return (
     <div>
+      <br/>
       <Container>
         <Row>
           <Col size="md-12">
