@@ -17,9 +17,100 @@ export default class Map extends React.Component {
 propertiesArray(properties) {
   
   let map = new window.google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.7392, lng: -104.9903},
-    zoom: 13,
-    mapTypeId: 'roadmap',
+    center: {lat: 39.801414, lng: -105.489014},
+    zoom: 9,
+    styles: [
+      {
+          "featureType": "water",
+          "stylers": [
+              {
+                  "visibility": "on"
+              },
+              {
+                  "color": "#b5cbe4"
+              }
+          ]
+      },
+      {
+          "featureType": "landscape",
+          "stylers": [
+              {
+                  "color": "#efefef"
+              }
+          ]
+      },
+      {
+          "featureType": "road.highway",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "color": "#83a5b0"
+              }
+          ]
+      },
+      {
+          "featureType": "road.arterial",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "color": "#bdcdd3"
+              }
+          ]
+      },
+      {
+          "featureType": "road.local",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "color": "#ffffff"
+              }
+          ]
+      },
+      {
+          "featureType": "poi.park",
+          "elementType": "geometry",
+          "stylers": [
+              {
+                  "color": "#e3eed3"
+              }
+          ]
+      },
+      {
+          "featureType": "administrative",
+          "stylers": [
+              {
+                  "visibility": "on"
+              },
+              {
+                  "lightness": 33
+              }
+          ]
+      },
+      {
+          "featureType": "road"
+      },
+      {
+          "featureType": "poi.park",
+          "elementType": "labels",
+          "stylers": [
+              {
+                  "visibility": "on"
+              },
+              {
+                  "lightness": 20
+              }
+          ]
+      },
+      {},
+      {
+          "featureType": "road",
+          "stylers": [
+              {
+                  "lightness": 20
+              }
+          ]
+      }
+  ]
   });
 
   map.addListener('zoom_changed', () => {
@@ -52,57 +143,53 @@ propertiesArray(properties) {
      // bring the selected place in view on the map
      map.fitBounds(place.geometry.viewport);
      map.setCenter(location);
-
-     // marker.setPlace({
-     //   placeId: place.place_id,
-     //   location: location,
-     // });
    });
-
+  let infoWindow = new window.google.maps.InfoWindow
   console.log(properties);
   // loop through parkingSpots array and display values on map
   for (let i = 0, length = properties.length; i < length; i++) {
     let data = properties[i],
         latLng = new window.google.maps.LatLng(data.lat, data.lng); 
-    console.log("BLAR");
     if (properties[i].occupied == 0 ) {
     // // Creating a marker and putting it on the map
-    let greenMarker = "http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+    let occupiedStatus = "Available for Rent!";
+    let url = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${parseFloat(data.lat)},${parseFloat(data.lng)}&heading=0&pitch=0&fov=80"`;
+    let greenMarker = "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png"
     let marker = new window.google.maps.Marker({
       position: latLng,
       map: map,
       icon: greenMarker,
-      title: data.propertyTitle
+      title: data.propertyTitle,
     });
     // // Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
       (function(marker, data) {
                 // Attaching a click event to the current marker
                 window.google.maps.event.addListener(marker, "click", function(e) {
-                  window.infoWindow.setContent(`<strong>${data.propertyTitle}</strong>`);
-                  window.infoWindow.open(map, marker);
+                  infoWindow.setContent(`<h4>${data.propertyTitle}</h4><p style="color:green"><b>${occupiedStatus}</b></p><p><a href=${url} target="_blank"><img src=${data.image} height="100" width="150"></a></p><p>${data.propertyAddress}</p><p><b>Monthly Rent:</b> $${data.monthlyRent} </p>`);
+                  infoWindow.open(map, marker);
 
                 });     
               })(marker, data);
     } else {
-      let redMarker = "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+      let occupiedStatus = "Currently Unavailable";
+      let url = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${parseFloat(data.lat)},${parseFloat(data.lng)}&heading=0&pitch=0&fov=80"`;
+      let redMarker = "https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png"
       let marker = new window.google.maps.Marker({
         position: latLng,
         map: map,
         icon: redMarker,
-        title: data.propertyTitle
+        title: data.propertyTitle,
       });
     //   // Creating a closure to retain the correct data, notice how I pass the current data in the loop into the closure (marker, data)
       (function(marker, data) {
         // Attaching a click event to the current marker
         window.google.maps.event.addListener(marker, "click", function(e) {
-          window.infoWindow.setContent(`<strong>${data.propertyTitle}</strong>`);
-          window.infoWindow.open(map, marker);
+            infoWindow.setContent(`<h4>${data.propertyTitle}</h4><p style="color:red"><b>${occupiedStatus}</b></p></p><p><a href=${url} target="_blank"><img src=${data.image} height="100" width="150"></a></p><p>${data.propertyAddress}</p><p><b>Monthly Rent:</b> $${data.monthlyRent} </p>`);
+            infoWindow.open(map, marker);
         });     
       })(marker, data);
     }     
   }
-
-
 }
 
   componentDidMount() {
@@ -112,28 +199,6 @@ propertiesArray(properties) {
     $.get("/api/properties", data => {
       this.propertiesArray(data);
     });
-
-    // let marker = new window.google.maps.Marker({
-    //   map: map,
-    //   position: {lat: 39.7392, lng: -104.9903},
-    // });
-
-    // ________________________________ START _________________________________
-
-
-
-    // _____________________________ END ___________________________________________
-
-
-
-
-
-
-
-
-
-
- 
   }
 
   render() {
