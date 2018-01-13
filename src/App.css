@@ -1,3 +1,44 @@
 .btn-margin {
   margin: 7px 3px;
 }
+
+.navbar-default {
+  background-color: rgb(194, 226, 249);
+}
+nav.navbar.navbar-default {
+  margin-bottom: 0;
+  background-color: rgb(194, 226, 249);
+  width: 100%;
+}
+
+.navbar-default .navbar-brand {
+  color: rgb(1, 57, 94);
+  font-weight: bold;
+}
+
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover{
+  color: rgb(238, 104, 15);
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: rgb(1, 57, 94);
+}
+
+h1 {
+  color: rgb(238, 104, 15);
+}
+
+h2 {
+  color: rgb(238, 104, 15);
+}
+
+row {
+  height: 60px;
+}
+
+.btn-margin {
+  float: right;
+  background-color: rgb(238, 104, 15);
+  border-color: rgb(238, 104, 15);
+}

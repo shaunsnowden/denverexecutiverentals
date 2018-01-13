@@ -19,8 +19,99 @@ export default class Map extends React.Component {
     console.log(this.state);
     let mapCard = new window.google.maps.Map(document.getElementById('mapCard'), {
       center: {lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng)},
-      zoom: 13,
-      mapTypeId: 'roadmap',
+      zoom: 12,
+      styles: [
+        {
+            "featureType": "water",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "color": "#b5cbe4"
+                }
+            ]
+        },
+        {
+            "featureType": "landscape",
+            "stylers": [
+                {
+                    "color": "#efefef"
+                }
+            ]
+        },
+        {
+            "featureType": "road.highway",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#83a5b0"
+                }
+            ]
+        },
+        {
+            "featureType": "road.arterial",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#bdcdd3"
+                }
+            ]
+        },
+        {
+            "featureType": "road.local",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#ffffff"
+                }
+            ]
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "geometry",
+            "stylers": [
+                {
+                    "color": "#e3eed3"
+                }
+            ]
+        },
+        {
+            "featureType": "administrative",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "lightness": 33
+                }
+            ]
+        },
+        {
+            "featureType": "road"
+        },
+        {
+            "featureType": "poi.park",
+            "elementType": "labels",
+            "stylers": [
+                {
+                    "visibility": "on"
+                },
+                {
+                    "lightness": 20
+                }
+            ]
+        },
+        {},
+        {
+            "featureType": "road",
+            "stylers": [
+                {
+                    "lightness": 20
+                }
+            ]
+        }
+    ]
     });
 
     mapCard.addListener('zoom_changed', () => {
@@ -34,9 +125,12 @@ export default class Map extends React.Component {
         maptype: mapCard.getMapTypeId(),
       });
     });
-
+    
+    let infoWindow = new window.google.maps.InfoWindow
+    let blueMarker = "http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png"
     let marker = new window.google.maps.Marker({
       map: mapCard,
+      icon: blueMarker,
       position: {lat: parseFloat(this.props.lat), lng: parseFloat(this.props.lng)},
     });
 

@@ -25,7 +25,8 @@ export default class RCard extends React.Component {
 
         let occupationStatus;
         let occupationStatusModal;
-
+        let url = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${parseFloat(this.props.lat)},${parseFloat(this.props.lng)}&heading=0&pitch=0&fov=80"`;
+        
         if (this.props.occupied === false) {
             occupationStatus = "Vacancy";
             occupationStatusModal = "This residence is currently vacant! Contact us at (970)555-1010 or denverrentz@jeemail.com to inquire about leasing opportunities."
@@ -34,7 +35,6 @@ export default class RCard extends React.Component {
         }
 
         return(
-        
         // individual card
         <div className = "rcard">
             <div className = "img-container" id ={this.props.id}>
@@ -58,6 +58,7 @@ export default class RCard extends React.Component {
                                 <h3>{this.props.name}</h3>
                                 <br/>
                                 <img alt={this.props.name} src={this.props.image} style={{height: "250px", width: "300px"}} />
+                                <p><a href={url} target="_blank">Click for Google Street View</a></p>
                                 <br/>
                                 <br/>
                                 <p>{this.props.address}</p>
@@ -74,6 +75,8 @@ export default class RCard extends React.Component {
                                     occupied={this.props.occupied}
                                     lat={this.props.lat}
                                     lng={this.props.lng}
+                                    monthlyRent={this.props.monthlyRent}
+                                    leaseEnd={this.props.leaseEnd}
                                 />
                             </div>
                         </div>

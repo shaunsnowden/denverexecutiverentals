@@ -11,6 +11,7 @@ import Wrapper from "../components/Wrapper";
 // import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Map from "../components/Map/Map";
+import Footer from "../components/Footer";
 
 class Residences extends Component {
 
@@ -31,7 +32,24 @@ class Residences extends Component {
   render() {
     return (
     <div>
-      
+      <Container>
+        <Row>
+          <Col size="md-12">
+      <Map
+          id={this.props.id}
+          key = {this.props.id}
+          name={this.props.propertyTitle}
+          image={this.props.image}
+          address={this.props.propertyAddress}
+          occupied={this.props.occupied}
+          lat={this.props.lat}
+          lng={this.props.lng}      
+          monthlyRent={this.props.monthlyRent}
+          leaseEnd={this.props.leaseEnd}
+         />
+          </Col>
+          </Row>
+      </Container>
       <Wrapper className="cardWrapper">
 
         {this.state.rcards.map(rcard => (
@@ -49,23 +67,6 @@ class Residences extends Component {
         ))}
         
       </Wrapper>
-      <Container>
-        <Row>
-          <Col size="md-12">
-      <Map
-          id={this.props.id}
-          key = {this.props.id}
-          name={this.props.propertyTitle}
-          image={this.props.image}
-          address={this.props.propertyAddress}
-          occupied={this.props.occupied}
-          lat={this.props.lat}
-          lng={this.props.lng}                        
-         />
-          </Col>
-          </Row>
-      </Container>
-      
     </div>
     );
   }
