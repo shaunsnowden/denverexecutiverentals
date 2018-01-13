@@ -68,6 +68,7 @@ class Residences extends Component {
         ))}
         
       </Wrapper>
+      <Footer />
     </div>
     );
   }
