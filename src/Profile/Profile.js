@@ -35,11 +35,16 @@ class Profile extends Component {
   };
 
 //   payment button
-  payRent = () => {
-    console.log("rent paid");
-    this.setState({openPayment: false });
-    this.setState({overdue: ""});
-    this.setState({rentPaidStatus: ""});
+payRent = () => {
+  console.log("rent paid");
+  this.setState({openPayment: false });
+  this.state.overdue = "";
+  this.state.rentPaidStatus = "";
+  let newDueDate = moment(this.state.rentDueDate).add(30, "days");
+  $.post(`/api/rentals/PayRent?sub=${this.state.tenantPassword}?rentDueDate=${newDueDate}`);
+  console.log(this.state.tenantPassword);
+  console.log(newDueDate);
+  $("#rent-notice").empty();
   };
 
   componentWillMount() {
@@ -120,15 +125,15 @@ class Profile extends Component {
           </Panel> */}
 
           <Panel header={"Your Rental Property"}>
-          <div class="col-md-9">
+          <div className="col-md-9">
                         <h3>{this.state.propertyTitle}</h3>
                         <img src={this.state.imageSource} alt="rentalImg" />
                         <h4>{this.state.propertyAddress}</h4>
                         <h4>Monthly Rent: ${this.state.monthlyRent}</h4>
                         <h4><i>Your next payment is due on <Moment parse="YYYY-MM-DD HH:mm"> {dateToFormat}</Moment> </i></h4>
-                        <h4 style={{ color: "red" }}>{rentPaidStatus}{overdue}</h4>
+                        <h4 id="rent-notice" style={{ color: "red" }}>{this.state.rentPaidStatus}{this.state.overdue}</h4>
           </div>
-          <div class="col-md-3">
+          <div className="col-md-3">
             <div className="pay-rent">
               <button className="btn btn-action" id="pay-rent-button" onClick={this.onOpenPaymentModal}>
                 Pay Rent
@@ -196,17 +201,17 @@ class Profile extends Component {
                       </div>
                         <ul className="nav nav-pills nav-stacked">
                           <li className="active"><a href="#"><span className="badge pull-right"><span className="glyphicon glyphicon-usd"></span>{this.state.monthlyRent}</span> Final Payment</a>
-</li>
+                          </li>
                         </ul>
                         <br />
-                        <a href="#" className="btn btn-success btn-lg btn-block" role="button">Pay</a>
-                        </div>
-                                    </div>
-                                </div>
+                        <button className="btn btn-success btn-lg btn-block" role="button" onClick={this.payRent}>Pay</button>
+                      </div>
+                    </div>
+                  </div>
 
 
-                            </Modal>
-                        </div>
+                </Modal>
+              </div>
 
                         <div className="maintenance">
                             <button className="btn btn-action" id="maintenance-button" onClick={this.onOpenMaintenanceModal}>
@@ -221,15 +226,15 @@ class Profile extends Component {
                                 }}
                                 animationDuration={1000}>
                                 <br />
-                                <form>
+                                
                                     <h4>Maintenance Form for {this.state.tenantName}</h4>
                                     <h4>at Address {this.state.propertyAddress}</h4>
                                     <br />
                                     <p>Please briefly describe your maintenance issue in the box below. You will be contacted within one business day after the issue is submitted. If this is an emergency please call 970-555-6969</p>
                                     <textarea className="form-control" id="maintenance-body" rows="6"></textarea>
                                     <br />
-                                    <button type="submit" className="btn btn-default">Submit</button>
-                                </form>
+                                    <button className="btn btn-success btn-lg btn-block" role="button" onClick={this.onCloseMaintenanceModal}>Submit</button>
+                                
                             </Modal>
                         </div>
                      </div>
