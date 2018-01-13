@@ -14,7 +14,7 @@ class Profile extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { profile: {}, openPayment: false, openMaintenance: false };
+    this.state = { profile: {}, openPayment: false, openMaintenance: false, rentPaidStatus:"", overdue:"" };
   }
 
   // modal functions
@@ -32,6 +32,14 @@ class Profile extends Component {
   
   onCloseMaintenanceModal = () => {
     this.setState({ openMaintenance: false });
+  };
+
+//   payment button
+  payRent = () => {
+    console.log("rent paid");
+    this.setState({openPayment: false });
+    this.setState({overdue: ""});
+    this.setState({rentPaidStatus: ""});
   };
 
   componentWillMount() {
@@ -57,21 +65,25 @@ class Profile extends Component {
           res => {
             if(res){
             console.log(res);
-            this.setState({
-              tenantName: res.tenantName,
-              propertyTitle: res.propertyTitle,
-              propertyAddress: res.propertyAddress,
-              imageSource: res.image,
-              leaseEnd: res.leaseEnd,
-              monthlyRent: res.monthlyRent,
-              rentDueDate: res.rentDueDate
-            });
-          }
-          }
+                this.setState({
+                tenantName: res.tenantName,
+                propertyTitle: res.propertyTitle,
+                propertyAddress: res.propertyAddress,
+                imageSource: res.image,
+                leaseEnd: res.leaseEnd,
+                monthlyRent: res.monthlyRent,
+                rentDueDate: res.rentDueDate
+                });
+              }   
+            }
           )
       }
     });
+
+    
+    
   }
+  
 
   render() {
     const { openPayment } = this.state;
@@ -83,16 +95,17 @@ class Profile extends Component {
     console.log(moment(this.state.rentDueDate));
     let currentDate = moment();
     console.log(currentDate);
-    let rentPaidStatus;
-    let overdue
+    // let rentPaidStatus;
+    // let overdue;
 
+    // time logic
     if(currentDate > moment(this.state.rentDueDate)){
         console.log("rent not paid");
-        overdue = moment(this.state.rentDueDate, "YYYYMMDD").fromNow();
-        rentPaidStatus = `Rent was due `;      
+        this.state.overdue = moment(this.state.rentDueDate, "YYYYMMDD").fromNow();
+        this.state.rentPaidStatus = `Rent was due `;      
     }
     else if(currentDate < moment(this.state.rentDueDate)){
-        rentPaidStatus = "";
+        this.state.rentPaidStatus = "";
     }
 
 
