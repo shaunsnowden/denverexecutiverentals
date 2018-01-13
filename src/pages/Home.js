@@ -20,15 +20,15 @@ const Home = () =>
       <Row>
         <Col size="md-12">
           <p>
-            Denver Executive Rentals is the premiere real estate management group for both short term and long-term rentals.  
+            Denver Executive Rentals is the premiere real estate management group for both short-term and long-term rentals.  
             Our group manages a range of properties from modern lofts in the heart of downtown Denver
             to lodges situated near the best ski resorts the Rocky Mountains has to offer.
           </p>
           <p>
             If you are a prospective tenant, click on our "Residences" page to view information on all of our
-            current properties.  Currents tenants please log in using our "Tenant Portal" page.
+            current properties. Currents tenants, please log in using our "Tenant Portal" page.
           </p>
-          <h2>Contact</h2>
+          <h2>Contact Us:</h2>
           <p>
             Email: denverrentz@jeemail.com
           </p>
@@ -38,7 +38,9 @@ const Home = () =>
         </Col>
       </Row>
     </Container>
-    <Footer />
+    <div>
+      <Footer />
+    </div>
   </div>;
 
 export default Home;

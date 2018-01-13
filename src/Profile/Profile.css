@@ -23,3 +23,7 @@
   transition: transform 1000ms ease;
   }
   
+.button{
+  background-color: red;
+  width: 100px;
+}
