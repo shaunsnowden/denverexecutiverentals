@@ -45,6 +45,7 @@ payRent = () => {
   console.log(this.state.tenantPassword);
   console.log(newDueDate);
   $("#rent-notice").empty();
+  $("#next-payment").html("<h4>Payment received.  Next payment due 2/10/2017</h4>");
   };
 
   componentWillMount() {
@@ -130,7 +131,7 @@ payRent = () => {
                         <img src={this.state.imageSource} alt="rentalImg" />
                         <h4>{this.state.propertyAddress}</h4>
                         <h4>Monthly Rent: ${this.state.monthlyRent}</h4>
-                        <h4><i>Your next payment is due on <Moment parse="YYYY-MM-DD HH:mm"> {dateToFormat}</Moment> </i></h4>
+                        <h4 id="next-payment"><i>Your next payment is due on <Moment parse="YYYY-MM-DD HH:mm"> {dateToFormat}</Moment> </i></h4>
                         <h4 id="rent-notice" style={{ color: "red" }}>{this.state.rentPaidStatus}{this.state.overdue}</h4>
           </div>
           <div className="col-md-3">
