@@ -11,6 +11,7 @@ import Wrapper from "../components/Wrapper";
 // import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Map from "../components/Map/Map";
+import Footer from "../components/Footer";
 
 class Residences extends Component {
 
@@ -66,7 +67,6 @@ class Residences extends Component {
         ))}
         
       </Wrapper>
-     
     </div>
     );
   }
